@@ -10,9 +10,9 @@ dotenv.config();
 const app = express();
 app.use(cors());
 
-app.use(auth);
 
 app.use(bodyParser.json({ extended: false }));
+app.use(auth);
 
 mongoose
   .connect(process.env.MONGODB_CONNECTION_URL)

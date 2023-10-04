@@ -4,6 +4,9 @@ import RootComponent from "./components/RootComponent";
 import AddExpense from './components/Expense/AddExpense';
 import Login from './components/AuthComponents/Login';
 import SignUp from './components/AuthComponents/SignUp';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Home from './components/Home';
 
 export default function App() {
   const router=createBrowserRouter([{
@@ -11,6 +14,9 @@ export default function App() {
     element:<RootComponent/>,
     children:[{
       path:'/',
+      element:<Home/>
+    }, {
+      path:'/addexpense',
       element:<AddExpense/>
     },
   
@@ -26,6 +32,7 @@ export default function App() {
   }])
   return (
     <div>
+        <ToastContainer />
      <RouterProvider router={router}/>
     </div>
   );

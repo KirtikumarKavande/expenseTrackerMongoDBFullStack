@@ -1,34 +1,38 @@
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { toggleAuthAction } from "../../store/AuthSlice";
+import usepostDataToDb from "../hooks/usePostDataToDb";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSignup = useSelector((store) => store.auth.isSignup);
   const emailRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
 
-  const handleAuthFormSubmit = (e) => {
+  const handleAuthFormSubmit = async (e) => {
     e.preventDefault();
     let obj;
-    if (isSignup) {
-      obj = {
-        email: emailRef.current.value,
-        password: passwordRef.current.value,
-        confirmPassword: confirmPasswordRef.current.value,
-      };
+    obj = {
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+      confirmPassword: isSignup ? confirmPasswordRef.current.value : null,
+    };
 
+    const data = await usepostDataToDb(isSignup ? "signup" : "signin", obj);
+    if (data.statusCode === 200) {
+      toast.success(data.message);
+      if (!isSignup) {
+        localStorage.setItem("token", data.token);
 
+        navigate("/addexpense");
+      }
     } else {
-      obj = {
-        email: emailRef.current.value,
-        password: passwordRef.current.value,
-      };
+      toast.error(data.message);
     }
-
-    console.log(obj);
   };
 
   return (
@@ -101,7 +105,7 @@ const SignUp = () => {
                 type="submit"
                 className="w-full text-white bg-blue-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
-                Create an account
+                {isSignup ? "Create an account" : "Sign to an Account"}
               </button>
             </form>
 
