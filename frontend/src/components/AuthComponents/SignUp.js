@@ -20,7 +20,7 @@ const SignUp = () => {
         confirmPassword: confirmPasswordRef.current.value,
       };
 
-      
+
     } else {
       obj = {
         email: emailRef.current.value,
