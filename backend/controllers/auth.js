@@ -1,10 +1,10 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Auth = require("../models/auth");
-const generateAccessToken = (id, emai, ispremiumuser) => {
+const generateAccessToken = (id, email, ispremiumuser) => {
   return jwt.sign(
     { signupuserId: id, email: email, ispremiumuser },
-    "98kirtikmarseqnjde132323123232kjcdbcf"
+    process.env.JWT_KEY
   );
 };
 const signUp = async (req, res) => {
