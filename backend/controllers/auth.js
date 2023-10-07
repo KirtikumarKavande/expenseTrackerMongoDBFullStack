@@ -7,11 +7,11 @@ const generateAccessToken = (id, email, ispremiumuser) => {
     process.env.JWT_KEY
   );
 };
+
 const signUp = async (req, res) => {
-  console.log(req.body);
 
   const { email, password } = req.body;
-l
+
   try {
     const user = await Auth.findOne({ email });
 
@@ -33,11 +33,9 @@ l
 };
 
 const signin = async(req,res,next) => {
-  console.log(">>>>>>>>>>>>",req.body)
   const {email,password}=req.body
 
 
-  console.log("email", req.body.email);
   try {
     const data = await Auth.findOne({
       email
