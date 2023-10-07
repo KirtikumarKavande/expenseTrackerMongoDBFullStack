@@ -7,6 +7,7 @@ import SignUp from './components/AuthComponents/SignUp';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Home from './components/Home';
+import Leaderboard from './components/Leaderboard';
 
 export default function App() {
   const router=createBrowserRouter([{
@@ -26,6 +27,10 @@ export default function App() {
   } ,{
     path:'/login',
     element:<SignUp/>
+  }
+  ,{
+    path:'/leaderboard',
+    element:<Leaderboard/>
   }
   
   ]

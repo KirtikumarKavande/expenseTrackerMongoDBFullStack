@@ -61,4 +61,11 @@ const deleteExpense = async (req, res) => {
     return res.status(200).json({ success: true, err });
   }
 };
-module.exports = { addExpense, showExpenses, deleteExpense };
+
+const leaderboad = async (req,res) => {
+  const users = await User.find()  .sort({ totalExpense: -1 }) 
+  
+
+  res.status(200).json(users);
+};
+module.exports = { addExpense, showExpenses, deleteExpense, leaderboad };
